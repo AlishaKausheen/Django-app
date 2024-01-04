@@ -12,6 +12,9 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from . tokens import generate_token
+from Psychologist.models import Contact
+from datetime import datetime
+
 
 # Create your views here.
 def home(request):
@@ -81,10 +84,6 @@ def signup(request):
         email.fail.silentlt = True
         email.send()
 
-        
-
-
-
         return redirect('signin')
 
     return render(request, "signup.html")
@@ -134,3 +133,15 @@ def signout(request):
 
 def psychology(request):
     return render(request, "psychology.html")
+
+
+def contact(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        desc = request.POST.get('desc')
+        contact = Contact(name=name, email=email, phone=phone, desc=desc, date = datetime.today())
+        contact.save()
+        messages.success(request, 'Your message has been sent!')
+    return render(request, 'contactus.html')
