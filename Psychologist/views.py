@@ -129,3 +129,8 @@ def signout(request):
     logout(request)
     messages.success(request, "Logged Out Successfully!!")
     return redirect('home')
+
+
+
+def psychology(request):
+    return render(request, "psychology.html")
