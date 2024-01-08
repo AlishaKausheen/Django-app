@@ -14,9 +14,49 @@ from django.utils.encoding import force_bytes
 from . tokens import generate_token
 from Psychologist.models import Contact
 from datetime import datetime
+from nltk.sentiment import SentimentIntensityAnalyzer
+import nltk
+nltk.download('vader_lexicon')
 
 
 # Create your views here.
+
+
+
+def analyze_sentiment_emotion(request):
+    if request.method == 'POST':
+        user_text = request.POST.get('user_input', '')
+        sia = SentimentIntensityAnalyzer()
+        sentiment_scores = sia.polarity_scores(user_text)
+        
+        # Sentiment analysis
+        sentiment = "Neutral"
+        if sentiment_scores['compound'] >= 0.05:
+            sentiment = "Positive"
+        elif sentiment_scores['compound'] <= -0.05:
+            sentiment = "Negative"
+        
+        # Emotion detection (simple rule-based method)
+        words = user_text.lower().split()
+        emotions = {
+            'happy': any(word in words for word in ['happy', 'joy', 'excited', 'glad', 'delighted']),
+            'sad': any(word in words for word in ['sad', 'unhappy', 'gloomy', 'miserable']),
+            'angry': any(word in words for word in ['angry', 'mad', 'furious', 'irritated']),
+            # Add more emotions and related words as needed
+        }
+        
+        # Capitalize emotion names before sending them to the template
+        capitalized_emotions = {emotion.capitalize(): detected for emotion, detected in emotions.items()}
+        
+        return render(request, 'sentiment_emotion_result.html', {'sentiment': sentiment, 'emotions': capitalized_emotions})
+    
+    return render(request, 'analyze_sentiment_emotion.html')
+
+
+
+
+
+
 def home(request):
     return render(request, "index.html")
 
@@ -91,8 +131,8 @@ def signup(request):
 def signin(request): 
 
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         
         user = authenticate(username = username, password = password)
 
@@ -143,5 +183,5 @@ def contact(request):
         desc = request.POST.get('desc')
         contact = Contact(name=name, email=email, phone=phone, desc=desc, date = datetime.today())
         contact.save()
-        messages.success(request, 'Your message has been sent!')
+        messages.success(request, 'Your message has been sent!!')
     return render(request, 'contactus.html')

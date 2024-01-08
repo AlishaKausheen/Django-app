@@ -12,12 +12,29 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path, os
 from . info import *
+from django.contrib.messages import constants as messages
 
 EMAIL_USE_TLS = EMAIL_USE_TLS
 EMAIL_HOST = EMAIL_HOST
 EMAIL_HOST_USER = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
+
+AUTHENTICATION_BACKENDS = [
+
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '1462229529-4ic681llf0ec99b4v2srjrl7fif4mqbk.apps.googleusercontent.com',
+            'secret': 'django-insecure-z(4td@*c0vm9$-r-vd7ylt%=ecp3y=g!pe=pxn68t0zdft%8^z',
+            'key': ''
+        }
+    }
+}
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +56,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'allauth',
+    'allauth.account',
     'Psychologist.apps.PsychologistConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +70,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
