@@ -1,34 +1,19 @@
 body {
-    background: url("https://images.unsplash.com/photo-1450849608880-6f787542c88a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    color: hsl(0, 0%, 100%);
     font-family: "Montserrat", sans-serif;
   }
   h1 {
     text-align: center;
     font-weight: 300;
     margin-top: 70px;
-    color: white;
   }
   h3 {
-    color: white;
     text-align: center;
   }
-  form {
-    text-align: center;
-    background-color: #a89389;
-    color: #fff;
-    border-radius: 20px;
-    padding: 30px;
-    margin: 60px auto;
-    max-width: 1200px;
-    height: 70px;
-  }
+  
   .input {
     padding: 10px 70px;
     border: none;
     border-radius: 20px;
-    background-color: #c2b0b6;
-    color: #fff;
     font-family: "Montserrat", sans-serif;
   }
   .submit {
@@ -37,9 +22,7 @@ body {
     padding: 4px 5px;
     border: none;
     border-radius: 20px;
-    color: #fff;
     margin: 15px 20px 10px 35px;
-    background-color: #c2b0b6;
   }
   .example {
     display: flex;
@@ -56,8 +39,6 @@ body {
     margin: 0 auto;
     text-align: center;
     line-height: 1.7;
-    background-color: #a89389;
-    color: #fff;
     border-radius: 10px;
     padding: 25px 30px;
     max-width: 1200px;
@@ -79,9 +60,9 @@ body {
       opacity: 0;
     }
   }
-  a {
+  .link a{
     text-decoration: none;
-    color: #544741;
+    color: black;
   }
   a:hover {
     color: black;
@@ -92,8 +73,6 @@ body {
     font-size: small;
     font-weight: 500;
     margin-top: 180px;
-    border: 3px solid #a89389;
-    color: white;
-    background-color: #a89389;
   }
+
   
